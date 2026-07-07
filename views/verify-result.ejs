@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verifikasi Email</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1><%= success ? 'Verifikasi Berhasil ✅' : 'Verifikasi Gagal ❌' %></h1>
+
+    <div class="<%= success ? 'success-box' : 'errors' %>">
+      <%= message %>
+    </div>
+
+    <div class="footer-link">
+      <a href="/login">Kembali ke halaman login</a>
+    </div>
+  </div>
+</body>
+</html>

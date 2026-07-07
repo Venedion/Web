@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Email Kamu</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>Cek Email Kamu 📩</h1>
+    <p class="subtitle">Satu langkah lagi sebelum bisa login</p>
+
+    <div class="success-box">
+      Kami sudah "mengirim" link verifikasi ke <strong><%= email %></strong>.
+      Karena SMTP belum dikonfigurasi, link verifikasinya tampil di
+      <strong>console/log server</strong> tempat kamu menjalankan <code>node server.js</code>.
+    </div>
+
+    <div class="footer-link">
+      Sudah verifikasi? <a href="/login">Login di sini</a>
+    </div>
+  </div>
+</body>
+</html>
