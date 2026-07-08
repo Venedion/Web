@@ -28,7 +28,7 @@ test('sendVerificationEmail falls back to console simulation when SMTP config is
   }
 });
 
-test('sendVerificationEmail uses Gmail SMTP with the standard port when SMTP config is present', async () => {
+test('sendVerificationEmail uses Gmail SMTP service when SMTP config is present', async () => {
   const originalHost = process.env.SMTP_HOST;
   const originalPort = process.env.SMTP_PORT;
   const originalUser = process.env.SMTP_USER;
@@ -46,9 +46,9 @@ test('sendVerificationEmail uses Gmail SMTP with the standard port when SMTP con
   const sent = [];
 
   nodemailer.createTransport = (config) => {
-    assert.equal(config.host, 'smtp.gmail.com');
-    assert.equal(config.port, 587);
-    assert.equal(config.secure, false);
+    assert.equal(config.service, 'gmail');
+    assert.equal(config.auth.user, 'sender@example.com');
+    assert.equal(config.auth.pass, 'app-password');
     return {
       sendMail: async (mailOptions) => {
         sent.push(mailOptions);

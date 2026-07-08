@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const os = require('os');
 const rateLimit = require('express-rate-limit');
 
 const db = require('../db');
@@ -26,6 +27,18 @@ const registerLimiter = rateLimit({
   max: 10,
   message: 'Terlalu banyak percobaan registrasi. Coba lagi nanti.',
 });
+
+function getLocalIpAddress() {
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return null;
+}
 
 // ---------- REGISTRASI ----------
 
@@ -57,39 +70,63 @@ router.post('/register', registerLimiter, async (req, res) => {
 
   const emailLower = email.trim().toLowerCase();
   const emailHash = sha256(emailLower);
+  const existingUserByEmail = db.findByEmailHash(emailHash);
+  const existingUserByUsername = db.findByUsername(username);
 
-  if (db.findByUsername(username)) {
+  if (existingUserByUsername && (!existingUserByEmail || existingUserByUsername.id !== existingUserByEmail.id)) {
     errors.push('Username sudah digunakan');
   }
-  if (db.findByEmailHash(emailHash)) {
+
+  if (existingUserByEmail && existingUserByEmail.is_verified) {
     errors.push('Email sudah terdaftar');
   }
+
   if (errors.length > 0) {
     return res.render('register', { errors, old: { username, email } });
   }
 
   try {
-    const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
-    const emailEncrypted = encrypt(emailLower);
-
+    const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
     const verificationToken = generateVerificationToken();
     const verificationTokenHash = sha256(verificationToken);
     const verificationExpiresAt = Date.now() + VERIFICATION_EXPIRY_MS;
 
-    db.createUser({
-      username,
-      emailEncrypted,
-      emailHash,
-      passwordHash,
-      verificationTokenHash,
-      verificationExpiresAt,
-    });
+    if (existingUserByEmail && !existingUserByEmail.is_verified) {
+      db.refreshVerificationToken(existingUserByEmail.id, verificationTokenHash, verificationExpiresAt);
+    } else {
+      const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+      const emailEncrypted = encrypt(emailLower);
 
-    const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+      db.createUser({
+        username,
+        emailEncrypted,
+        emailHash,
+        passwordHash,
+        verificationTokenHash,
+        verificationExpiresAt,
+      });
+    }
+
     const verificationLink = `${baseUrl}/verify/${verificationToken}`;
-    await sendVerificationEmail(emailLower, verificationLink);
+    const localIp = getLocalIpAddress();
+    const localLink = localIp ? `http://${localIp}:${process.env.PORT || 3000}/verify/${verificationToken}` : verificationLink;
 
-    res.render('check-email', { email: emailLower });
+    try {
+      await sendVerificationEmail(emailLower, verificationLink);
+    } catch (emailErr) {
+      console.error('Gagal mengirim email verifikasi:', emailErr);
+      req.session.pendingVerificationEmail = emailLower;
+      req.session.pendingVerificationLink = verificationLink;
+    }
+
+    const verificationContext = {
+      email: emailLower,
+      verificationLink: req.session.pendingVerificationLink || localLink,
+      primaryLink: verificationLink,
+      localLink,
+    };
+
+    res.render('check-email', verificationContext);
   } catch (err) {
     console.error('Registrasi gagal:', err);
     res.render('register', {

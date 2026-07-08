@@ -78,6 +78,19 @@ function markVerified(userId) {
   writeData(data);
 }
 
+function refreshVerificationToken(userId, verificationTokenHash, verificationExpiresAt) {
+  const data = readData();
+  const user = data.users.find((u) => u.id === userId);
+  if (!user) return null;
+
+  user.verification_token_hash = verificationTokenHash;
+  user.verification_expires_at = verificationExpiresAt;
+  user.is_verified = false;
+  writeData(data);
+
+  return user;
+}
+
 function updateLoginFailure(userId, failedAttempts, lockedUntil) {
   const data = readData();
   const user = data.users.find((u) => u.id === userId);
@@ -98,6 +111,7 @@ module.exports = {
   findByVerificationTokenHash,
   createUser,
   markVerified,
+  refreshVerificationToken,
   updateLoginFailure,
   resetLoginFailure,
 };
