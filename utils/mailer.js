@@ -2,21 +2,24 @@ const nodemailer = require('nodemailer');
 
 function getSmtpConfig() {
   const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-  const smtpPort = Number(process.env.SMTP_PORT || 587);
+  const configuredPort = Number(process.env.SMTP_PORT || 587);
+  const smtpPort = Number.isNaN(configuredPort)
+    ? 587
+    : configuredPort === 578 && smtpHost.toLowerCase().includes('gmail')
+      ? 587
+      : configuredPort;
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
   const smtpFrom = process.env.SMTP_FROM || smtpUser;
 
   if (!smtpUser || !smtpPass) {
-    throw new Error(
-      'Konfigurasi SMTP Gmail belum lengkap. Isi SMTP_USER dan SMTP_PASS di file .env (gunakan App Password Gmail).'
-    );
+    return null;
   }
 
   return {
     host: smtpHost,
     port: smtpPort,
-    secure: false,
+    secure: smtpPort === 465,
     auth: {
       user: smtpUser,
       pass: smtpPass,
@@ -25,8 +28,26 @@ function getSmtpConfig() {
   };
 }
 
+function logVerificationEmail(toEmail, verificationLink) {
+  console.log('\n================ SIMULASI EMAIL ================');
+  console.log(`Kepada     : ${toEmail}`);
+  console.log('Subjek     : Verifikasi Akun Kamu');
+  console.log('Isi        :');
+  console.log('  Klik link berikut untuk memverifikasi akunmu (berlaku 1 jam):');
+  console.log(`  ${verificationLink}`);
+  console.log('==================================================\n');
+}
+
 async function sendVerificationEmail(toEmail, verificationLink) {
-  const { host, port, secure, auth, from } = getSmtpConfig();
+  const smtpConfig = getSmtpConfig();
+
+  if (!smtpConfig) {
+    console.warn('SMTP belum dikonfigurasi. Menggunakan simulasi email di console.');
+    logVerificationEmail(toEmail, verificationLink);
+    return;
+  }
+
+  const { host, port, secure, auth, from } = smtpConfig;
   const transporter = nodemailer.createTransport({
     host,
     port,
@@ -35,7 +56,7 @@ async function sendVerificationEmail(toEmail, verificationLink) {
   });
 
   try {
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: from || auth.user,
       to: toEmail,
       subject: 'Verifikasi Akun Kamu',
@@ -46,9 +67,12 @@ async function sendVerificationEmail(toEmail, verificationLink) {
         <p>Jika Anda tidak mendaftar, abaikan email ini.</p>
       `,
     });
+    console.log(`Email verifikasi berhasil dikirim ke ${toEmail} (${info.messageId})`);
+    return info;
   } catch (error) {
-    console.error('Gagal mengirim email verifikasi:', error);
-    throw new Error(`Gagal mengirim email verifikasi ke ${toEmail}: ${error.message}`);
+    console.error('Gagal mengirim email verifikasi via SMTP. Menggunakan simulasi email di console:', error.message);
+    logVerificationEmail(toEmail, verificationLink);
+    throw error;
   }
 }
 
