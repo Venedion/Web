@@ -7,11 +7,8 @@ body {
   font-family: 'Segoe UI', system-ui, sans-serif;
   background: linear-gradient(135deg, #1e293b, #0f172a);
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #e2e8f0;
-  padding: 20px;
+  padding: 0;
 }
 
 .card {
@@ -127,6 +124,69 @@ button:hover {
   text-decoration: underline;
 }
 
+.auth-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+}
+
+.auth-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 40px;
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.auth-topbar .brand-logo {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #6366f1;
+  color: #fff;
+  font-weight: 700;
+}
+
+.auth-topbar .brand-name {
+  color: #f8fafc;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 40px 20px;
+}
+
+.auth-container .card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.guest-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #a5b4fc;
+}
+
+.guest-link:hover {
+  text-decoration: underline;
+}
+
 .dashboard-info {
   font-size: 14px;
   line-height: 1.8;
@@ -134,4 +194,393 @@ button:hover {
 
 .dashboard-info strong {
   color: #f8fafc;
+}
+
+/* Dashboard baru */
+body {
+  align-items: stretch;
+  padding: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #020617;
+  width: 100%;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  background: rgba(15, 23, 42, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  max-width: none;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #6366f1;
+  color: white;
+  font-weight: 700;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.main-nav a,
+.main-nav summary {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.main-nav a.active {
+  color: #818cf8;
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown summary {
+  list-style: none;
+}
+
+.nav-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-dropdown .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  z-index: 5;
+}
+
+.nav-dropdown[open] .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu a {
+  color: #e2e8f0;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.divider {
+  height: 1px;
+  background: rgba(148, 163, 184, 0.16);
+  margin: 8px 0;
+}
+
+.profile-wrapper {
+  position: relative;
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-dropdown summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 10px 14px;
+  border-radius: 14px;
+  color: #f8fafc;
+  cursor: pointer;
+}
+
+.profile-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #6366f1;
+  color: #fff;
+  font-weight: 700;
+}
+
+.profile-label {
+  font-weight: 600;
+}
+
+.profile-menu-items {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  width: 220px;
+  padding: 12px;
+  border-radius: 16px;
+  background: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.4);
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 10;
+}
+
+.profile-dropdown[open] .profile-menu-items {
+  display: flex;
+}
+
+.profile-menu-items a,
+.profile-menu-items button {
+  width: 100%;
+  color: #e2e8f0;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.profile-menu-items a:hover,
+.profile-menu-items button:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.profile-menu-items button {
+  font: inherit;
+}
+
+.dashboard-content {
+  width: 100%;
+  max-width: none;
+  margin: 32px 0 40px;
+  padding: 0 40px;
+  flex: 1;
+}
+
+.hero-panel {
+  width: 100%;
+  padding: 32px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.12), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.hero-panel h1 {
+  margin: 0 0 12px;
+  font-size: 36px;
+  color: #f8fafc;
+}
+
+.hero-panel p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 16px;
+}
+
+.medicine-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.medicine-card {
+  background: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.medicine-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+
+.medicine-card summary {
+  list-style: none;
+  cursor: pointer;
+  display: block;
+}
+
+.medicine-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.medicine-card-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 28px;
+}
+
+.medicine-card-main:hover {
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.medicine-card-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #f8fafc;
+  margin-bottom: 8px;
+}
+
+.medicine-card-summary {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #cbd5e1;
+  max-width: 760px;
+}
+
+.medicine-card-details {
+  padding: 0 28px 28px;
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+  background: rgba(15, 23, 42, 0.95);
+  color: #e2e8f0;
+  line-height: 1.8;
+}
+
+.medicine-card-details p {
+  margin: 16px 0 0;
+}
+
+.medicine-card-details strong {
+  color: #f8fafc;
+}
+
+.medicine-card summary::after {
+  content: 'Lihat detail';
+  color: #94a3b8;
+  font-size: 13px;
+  margin-left: auto;
+}
+
+.medicine-card[open] .medicine-card-main {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+@media (max-width: 900px) {
+  .medicine-card-main {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 24px;
+  }
+
+  .medicine-card-title {
+    font-size: 24px;
+  }
+
+  .medicine-card-summary {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-content {
+    padding: 0 20px;
+  }
+
+  .medicine-card-title {
+    font-size: 22px;
+  }
+
+  .medicine-card-summary {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 900px) {
+  .medicine-card-main {
+    flex-direction: column;
+    padding: 22px 24px;
+  }
+
+  .medicine-card-summary {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-content {
+    padding: 0 20px;
+  }
+
+  .medicine-card-title {
+    font-size: 22px;
+  }
+
+  .medicine-card-summary {
+    font-size: 14px;
+  }
+}
+
+.summary-card {
+  background: #111827;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.summary-card h2 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  color: #f8fafc;
+}
+
+.summary-card p {
+  margin: 0;
+  color: #cbd5e1;
+  line-height: 1.8;
 }

@@ -7,26 +7,39 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <div class="card">
-    <h1>Login</h1>
-    <p class="subtitle">Masuk ke akunmu</p>
+  <div class="auth-shell">
+    <header class="auth-topbar">
+      <div class="auth-brand">
+        <span class="brand-logo">A</span>
+        <span class="brand-name">Arogya.</span>
+      </div>
+    </header>
 
-    <% if (error) { %>
-      <div class="errors"><%= error %></div>
-    <% } %>
+    <div class="auth-container">
+      <div class="card">
+        <h1>Login</h1>
+        <p class="subtitle">Masuk ke akunmu</p>
 
-    <form method="POST" action="/login">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required />
+        <% if (error) { %>
+          <div class="errors"><%= error %></div>
+        <% } %>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required />
+        <form method="POST" action="/login">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
 
-      <button type="submit">Masuk</button>
-    </form>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
 
-    <div class="footer-link">
-      Belum punya akun? <a href="/register">Daftar di sini</a>
+          <button type="submit">Masuk</button>
+        </form>
+
+        <div class="footer-link">
+          Belum punya akun? <a href="/register">Daftar di sini</a>
+          <br />
+          <a class="guest-link" href="/login?guest=1">Login sebagai guest</a>
+        </div>
+      </div>
     </div>
   </div>
 </body>

@@ -179,6 +179,18 @@ router.get('/verify/:token', (req, res) => {
 // ---------- LOGIN ----------
 
 router.get('/login', (req, res) => {
+  if (req.query.guest === '1') {
+    return req.session.regenerate((err) => {
+      if (err) {
+        console.error('Guest login gagal:', err);
+        return res.render('login', { error: 'Tidak dapat masuk sebagai guest saat ini.' });
+      }
+      req.session.guest = true;
+      req.session.username = 'Guest';
+      return res.redirect('/dashboard');
+    });
+  }
+
   res.render('login', { error: null });
 });
 
@@ -250,6 +262,14 @@ router.post('/logout', (req, res) => {
 // ---------- DASHBOARD (contoh halaman terproteksi) ----------
 
 router.get('/dashboard', requireLogin, (req, res) => {
+  if (req.session.guest) {
+    return res.render('dashboard', {
+      username: req.session.username || 'Guest',
+      email: 'guest@arogya.local',
+      createdAt: 'Guest Access',
+    });
+  }
+
   const user = db.findById(req.session.userId);
 
   if (!user) {

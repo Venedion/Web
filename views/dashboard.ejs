@@ -7,19 +7,225 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <div class="card">
-    <h1>Halo, <%= username %> 👋</h1>
-    <p class="subtitle">Kamu berhasil login</p>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-logo">A</span>
+        <span class="brand-name">Arogya.</span>
+      </div>
 
-    <div class="dashboard-info">
-      <p><strong>Username:</strong> <%= username %></p>
-      <p><strong>Email:</strong> <%= email %></p>
-      <p><strong>Terdaftar sejak:</strong> <%= createdAt %></p>
-    </div>
+      <nav class="main-nav">
+        <a href="/dashboard" class="active">Direktori Obat</a>
+        <details class="nav-dropdown">
+          <summary>Kategori</summary>
+          <div class="dropdown-menu">
+            <a href="#">Obat Bebas</a>
+            <a href="#">Obat Resep</a>
+            <a href="#">Obat Herbal</a>
+            <a href="#">Vitamin</a>
+            <div class="divider"></div>
+            <a href="#">Sirup</a>
+            <a href="#">Tablet</a>
+            <a href="#">Salep</a>
+          </div>
+        </details>
+      </nav>
 
-    <form method="POST" action="/logout" style="margin-top: 20px;">
-      <button type="submit">Logout</button>
-    </form>
+      <div class="profile-wrapper">
+        <details class="profile-dropdown">
+          <summary>
+            <span class="avatar"><%= username.charAt(0).toUpperCase() %></span>
+            <span class="profile-label"><%= username %></span>
+          </summary>
+          <div class="profile-menu-items">
+            <a href="/profile">Lihat Profile</a>
+            <a href="/settings">Pengaturan</a>
+            <form method="POST" action="/logout">
+              <button type="submit">Sign Out</button>
+            </form>
+          </div>
+        </details>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <section class="hero-panel">
+        <h1>Dashboard Utama</h1>
+        <p>Selamat datang kembali di panel manajemen Arogya. Pilih obat untuk melihat informasi lengkapnya.</p>
+      </section>
+
+      <section class="medicine-grid">
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Paracetamol (Acetaminophen)</div>
+              <div class="medicine-card-summary">Pereda nyeri ringan dan penurun demam dengan risiko hepatotoksik jika overdosis.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Paracetamol 500 mg per tablet.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral (sesudah atau sebelum makan). Dewasa: 500 mg–1 gram setiap 4–6 jam jika diperlukan. Maksimal 4 gram (4000 mg) per hari.</p>
+            <p><strong>Alasan Konsumsi:</strong> Meredakan nyeri ringan hingga sedang (sakit kepala, sakit gigi) dan menurunkan demam.</p>
+            <p><strong>Penjelasan Mendetail:</strong> Bekerja dengan cara menghambat sintesis prostaglandin di Sistem Saraf Pusat (SSP). Jurnal Drug Chemical Toxicology (2026) menegaskan bahwa paracetamol sangat aman untuk lambung dibanding NSAID, namun memiliki risiko tinggi hepatotoksik jika overdosis akibat akumulasi metabolit beracun NAPQI yang menghabiskan cadangan glutation hati. Karena risiko ini, per 1 Februari 2025, badan pengawas obat internasional mulai memperketat ukuran kemasan paracetamol bebas guna menekan angka overdosis.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang bagi orang yang memiliki riwayat hipersensitivitas atau alergi langsung terhadap asetaminofen. Tidak boleh dikonsumsi oleh pasien dengan gangguan fungsi hati berat (seperti sirosis atau hepatitis akut) karena dapat memicu gagal hati fatal, serta pasien dengan gangguan fungsi ginjal parah.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 2.000 – Rp 15.000 per strip (10 tablet), tergantung apakah sediaan generik atau bermerek.</p>
+          </div>
+        </details>
+
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Amoxicillin</div>
+              <div class="medicine-card-summary">Antibiotik spektrum luas untuk infeksi bakteri, harus habis sesuai resep dokter.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Amoxicillin anhidrat 500 mg per tablet/kaplet.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral, sebaiknya bersama makanan untuk mengurangi ketidaknyamanan lambung. Harus dihabiskan sesuai resep dokter (biasanya 3x sehari selama 5–7 hari) meskipun gejala sudah hilang.</p>
+            <p><strong>Alasan Konsumsi:</strong> Mengobati infeksi bakteri, seperti infeksi saluran pernapasan, otitis media, dan infeksi kulit.</p>
+            <p><strong>Penjelasan Mendetail:</strong> Merupakan antibiotik spektrum luas golongan Beta-Laktam yang bekerja menghambat pembentukan dinding sel bakteri. Berdasarkan IDSA Guidance 2024, amoxicillin dosis tinggi tetap menjadi lini pertama untuk infeksi saluran napas atas dan otitis media akut. Panduan terbaru menekankan pentingnya antimicrobial stewardship: dilarang meresepkan amoxicillin tanpa bukti infeksi bakteri yang kuat guna mencegah resistensi antimikroba.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang mutlak bagi individu yang memiliki alergi terhadap antibiotik golongan Penisilin. Terdapat juga risiko alergi silang; sehingga pasien yang memiliki alergi parah terhadap antibiotik golongan Sefalosporin harus sangat berhati-hati atau menghindarinya karena dapat memicu syok anafilaktik.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 5.000 – Rp 15.000 per strip (10 tablet) untuk versi generik.</p>
+          </div>
+        </details>
+
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Metformin</div>
+              <div class="medicine-card-summary">Obat utama untuk menurunkan gula darah pada diabetes tipe 2 dengan manfaat tambahan pada mikrobioma usus.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Metformin Hidroklorida 500 mg atau 850 mg.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral bersamaan dengan makanan atau segera setelah makan untuk mengurangi efek samping mual dan kram perut. Biasanya 1–3 kali sehari tergantung instruksi klinis.</p>
+            <p><strong>Alasan Konsumsi:</strong> Menurunkan kadar gula darah pada penderita Diabetes Melitus Tipe 2.</p>
+            <p><strong>Penjelasan Mendetail:</strong> Mekanisme utamanya adalah mengaktifkan AMPK untuk menekan glukoneogenesis di hati dan meningkatkan sensitivitas insulin di otot. Riset klinis terbaru (2025) membuktikan metformin mengubah komposisi mikrobioma usus untuk memproduksi asam lemak rantai pendek yang memperbaiki sawar usus, serta sedang diteliti intensif untuk efek anti-aging dan supresi tumor melalui jalur hambatan mTOR.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang bagi pasien yang hipersensitif terhadap metformin. Secara klinis, dilarang keras bagi pasien dengan gangguan fungsi ginjal berat (eGFR &lt; 30 mL/min/1.73 m²), asidosis metabolik akut, serta kondisi hipoksia seperti gagal jantung akut, karena meningkatkan risiko asidosis laktat yang mematikan.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 3.000 – Rp 35.000 per strip (10 tablet). Generik sangat terjangkau, sementara obat paten/bermerek berada di rentang atas.</p>
+          </div>
+        </details>
+
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Atorvastatin</div>
+              <div class="medicine-card-summary">Statin untuk menurunkan kolesterol LDL dan mencegah risiko jantung dan stroke.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Atorvastatin Kalsium 10 mg, 20 mg, atau 40 mg.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral 1 kali sehari, boleh sebelum atau sesudah makan. Dapat diminum kapan saja asalkan konsisten di jam yang sama setiap hari.</p>
+            <p><strong>Alasan Konsumsi:</strong> Menurunkan kolesterol jahat (LDL) dan trigliserida, serta meningkatkan kolesterol baik (HDL) untuk mencegah serangan jantung dan stroke.</p>
+            <p><strong>Penjelasan Mendetail:</strong> Bekerja secara kompetitif menghambat enzim HMG-CoA reduktase di hati. Panduan ADA 2024/2025 memperketat penggunaan atorvastatin intensitas tinggi sebagai proteksi primer wajib bagi pasien diabetes usia 40–75 tahun dengan risiko kardiovaskular tinggi, bahkan jika kadar awal LDL terlihat normal. Efek samping yang dipantau ketat adalah myopathy.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang bagi yang alergi terhadap obat golongan statin. Kontraindikasi mutlak bagi penderita penyakit hati aktif atau peningkatan enzim hati transaminase persisten. Obat ini juga dilarang keras bagi wanita hamil dan ibu menyusui.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 15.000 – Rp 30.000 per strip (generik), hingga Rp 150.000 – Rp 250.000+ per strip (obat paten).</p>
+          </div>
+        </details>
+
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Ibuprofen</div>
+              <div class="medicine-card-summary">NSAID untuk nyeri sedang dan inflamasi dengan batasan penggunaan untuk melindungi lambung.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Ibuprofen 200 mg atau 400 mg per tablet.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral, wajib sesudah makan atau bersama susu untuk melindungi dinding lambung. Dewasa: 200–400 mg setiap 4–6 jam (maksimal 1200 mg per hari untuk penggunaan mandiri/OTC).</p>
+            <p><strong>Alasan Konsumsi:</strong> Meredakan nyeri intensitas sedang dan mengurangi inflamasi, seperti pada radang sendi.</p>
+            <p><strong>Penjelasan Mendetail:</strong> Merupakan obat golongan NSAID yang menghambat enzim COX-1 dan COX-2. Studi klinis terbaru mengingatkan bahwa penggunaan dosis tinggi jangka panjang meningkatkan risiko tekanan darah tinggi dan stroke serta potensi cedera ginjal akut jika dikonsumsi dalam kondisi dehidrasi.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang bagi pasien yang alergi terhadap ibuprofen, Aspirin, atau NSAID lainnya. Sangat berbahaya bagi pasien yang mengalami asma, urtikaria, atau reaksi alergi parah setelah aspirin. Tidak boleh dikonsumsi oleh penderita tukak lambung aktif, demam berdarah, dan gagal jantung berat.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 3.000 – Rp 25.000 per strip (10 tablet).</p>
+          </div>
+        </details>
+
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Omeprazole</div>
+              <div class="medicine-card-summary">PPI untuk GERD dan tukak lambung, dengan peringatan penggunaan jangka panjang.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Omeprazole 20 mg dalam bentuk kapsul pelet lepas tunda.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral, wajib 30–60 menit sebelum makan. Kapsul harus ditelan utuh, tidak boleh dikunyah atau dihancurkan.</p>
+            <p><strong>Alasan Konsumsi:</strong> Mengobati penyakit asam lambung, tukak lambung, dan sindrom Zollinger-Ellison.</p>
+            <p><strong>Penjelasan Mendetail:</strong> Termasuk dalam golongan PPI yang memblokir tahap akhir sekresi asam lambung. Tinjauan klinis terbaru sangat membatasi penggunaan jangka panjang tanpa indikasi kuat karena bukti hipomagnesemia, peningkatan risiko osteoporosis, dan infeksi C. difficile.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang bagi individu yang alergi terhadap omeprazole atau PPI lainnya. Dikontraindikasikan bersamaan dengan rilpivirine dan nelfinavir karena menurunkan efektivitas antiretroviral.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 4.000 – Rp 20.000 per strip (10 kapsul) untuk sediaan generik.</p>
+          </div>
+        </details>
+
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Amlodipine</div>
+              <div class="medicine-card-summary">Calcium channel blocker untuk hipertensi, efektif untuk lansia namun dapat menyebabkan edema.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Amlodipine Besilat 5 mg atau 10 mg.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral 1 kali sehari, sebelum atau sesudah makan. Jam konsumsi harus sama setiap hari.</p>
+            <p><strong>Alasan Konsumsi:</strong> Mengontrol tekanan darah tinggi dan mencegah nyeri dada (angina).</p>
+            <p><strong>Penjelasan Mendetail:</strong> Merupakan Calcium Channel Blocker yang memicu vasodilatasi pembuluh darah sistemik. Pembaruan klinis menekankan amlodipine sebagai monoterapi lini pertama yang sangat efektif untuk pasien hipertensi lansia. Efek samping utama adalah edema pergelangan kaki.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang bagi pasien yang alergi terhadap amlodipine atau obat dihydropyridine lainnya. Tidak boleh diberikan pada pasien dengan syok kardiogenik, stenosis aorta berat, atau hipotensi.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 3.000 – Rp 15.000 per strip (umur generik).</p>
+          </div>
+        </details>
+
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Cetirizine</div>
+              <div class="medicine-card-summary">Antihistamin generasi kedua untuk alergi dengan efek kantuk rendah.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Cetirizine Hidroklorida 10 mg per tablet.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral 1 kali sehari 10 mg. Lebih disarankan malam hari bagi pasien yang sensitif terhadap kantuk.</p>
+            <p><strong>Alasan Konsumsi:</strong> Meredakan gejala alergi seperti rhinitis alergi dan urtikaria.</p>
+            <p><strong>Penjelasan Mendetail:</strong> Antihistamin generasi kedua yang menghambat reseptor H1 perifer. Tidak mudah menembus sawar darah otak, sehingga efek sedasinya rendah, namun 10–14% pengguna masih merasakan kantuk.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang bagi penderita alergi terhadap cetirizine, levocetirizine, atau hydroxyzine. Tidak disarankan untuk pasien dengan gangguan ginjal stadium akhir yang menjalani dialisis.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 4.000 – Rp 10.000 per strip (generik), hingga Rp 30.000 – Rp 60.000 per strip (merek).</p>
+          </div>
+        </details>
+
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Losartan</div>
+              <div class="medicine-card-summary">ARB untuk hipertensi dan perlindungan ginjal pada diabetes, dilarang pada kehamilan.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Losartan Kalium 50 mg atau 100 mg.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral 1 kali sehari, secara mandiri atau bersama makanan.</p>
+            <p><strong>Alasan Konsumsi:</strong> Menurunkan hipertensi, memproteksi ginjal pada pasien diabetes tipe 2 dengan nefropati, dan menurunkan risiko stroke.</p>
+            <p><strong>Penjelasan Mendetail:</strong> Merupakan obat golongan ARB yang memblokir ikatan Angiotensin II ke reseptor AT1. Riset nefrologi terbaru menegaskan efek renoprotektif kuat losartan dalam memperlambat gagal ginjal stadium akhir pada pasien diabetik. Kontraindikasi mutlak pada kehamilan.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang bagi yang hipersensitif terhadap losartan atau ARB lainnya. Tidak boleh digunakan pada wanita hamil, terutama trimester kedua dan ketiga.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 15.000 – Rp 30.000 per strip (generik), hingga Rp 80.000 – Rp 150.000 per strip (obat bermerek).</p>
+          </div>
+        </details>
+
+        <details class="medicine-card">
+          <summary>
+            <div class="medicine-card-main">
+              <div class="medicine-card-title">Metoclopramide</div>
+              <div class="medicine-card-summary">Obat anti-mual dengan batasan penggunaan sangat pendek untuk menghindari risiko neurologis.</div>
+            </div>
+          </summary>
+          <div class="medicine-card-details">
+            <p><strong>Komposisi:</strong> Metoclopramide Hidroklorida 10 mg per tablet.</p>
+            <p><strong>Cara &amp; Aturan Konsumsi:</strong> Diminum oral, 30 menit sebelum makan dan sebelum tidur malam. Jarak antar dosis minimal 6 jam.</p>
+            <p><strong>Alasan Konsumsi:</strong> Meredakan mual dan muntah akut akibat migrain, kemoterapi, pasca-operasi, serta mengatasi gastroparesis diabetik.</p>
+            <p><strong>Penjelasan Mendetail:</strong> Bekerja ganda sebagai antagonis reseptor dopamin D2 dan meningkatkan motilitas saluran cerna atas. Evaluasi keamanan EMA dan FDA menekankan durasi penggunaan maksimal hanya 5 hari untuk indikasi akut karena risiko Tardive Dyskinesia.</p>
+            <p><strong>Peringatan Alergi &amp; Kontraindikasi:</strong> Dilarang bagi yang alergi terhadap metoclopramide. Kontraindikasi sangat ketat bagi pasien epilepsi, Parkinson, atau dugaan perdarahan/sumbatan saluran cerna, serta pheochromocytoma.</p>
+            <p><strong>Kisaran Harga:</strong> Rp 2.000 – Rp 5.000 per strip (generik), hingga Rp 15.000 – Rp 30.000 per strip (merek).</p>
+          </div>
+        </details>
+      </section>
+    </main>
   </div>
 </body>
 </html>
