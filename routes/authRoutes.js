@@ -109,19 +109,20 @@ router.post('/register', registerLimiter, async (req, res) => {
 
     const verificationLink = `${baseUrl}/verify/${verificationToken}`;
     const localIp = getLocalIpAddress();
-    const localLink = localIp ? `http://${localIp}:${process.env.PORT || 3000}/verify/${verificationToken}` : verificationLink;
+    const localLink = localIp ? `http://${localIp}:${process.env.PORT || 3000}/verify/${verificationToken}` : null;
+    const emailLink = localLink || verificationLink;
 
     try {
-      await sendVerificationEmail(emailLower, verificationLink);
+      await sendVerificationEmail(emailLower, emailLink);
     } catch (emailErr) {
       console.error('Gagal mengirim email verifikasi:', emailErr);
       req.session.pendingVerificationEmail = emailLower;
-      req.session.pendingVerificationLink = verificationLink;
+      req.session.pendingVerificationLink = emailLink;
     }
 
     const verificationContext = {
       email: emailLower,
-      verificationLink: req.session.pendingVerificationLink || localLink,
+      verificationLink: req.session.pendingVerificationLink || emailLink,
       primaryLink: verificationLink,
       localLink,
     };

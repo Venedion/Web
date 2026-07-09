@@ -13,14 +13,7 @@
 
     <div class="success-box">
       Pendaftaran berhasil. Kami sudah menyiapkan link verifikasi untuk <strong><%= email %></strong>.
-      Jika email tidak muncul dalam beberapa menit, cek folder spam atau pastikan pengaturan SMTP Anda sudah benar.
-      Saat ini, link verifikasi juga dapat dilihat di <strong>console/log server</strong> tempat aplikasi berjalan.
-      <% if (typeof verificationLink !== 'undefined' && verificationLink) { %>
-        <p style="margin-top: 1rem; word-break: break-all;"><strong>Link verifikasi:</strong> <a href="<%= verificationLink %>"><%= verificationLink %></a></p>
-      <% } %>
-      <% if (typeof localLink !== 'undefined' && localLink && localLink !== verificationLink) { %>
-        <p style="margin-top: 0.75rem; word-break: break-all;"><strong>Link akses lokal:</strong> <a href="<%= localLink %>"><%= localLink %></a></p>
-      <% } %>
+      Jika email tidak muncul dalam beberapa menit, cek folder spam.
     </div>
 
     <div class="footer-link">
