@@ -39,31 +39,9 @@ Node.js + Express.
 
 5. Buka `http://localhost:3000` di browser.
 
-## Alur Verifikasi Email (Simulasi)
+## Alur Verifikasi Email
+pada halaman registrasi akun, setelah semua yang diperlukan telah terisi lalu tekan daftra, maka link verifikasi akan di kirimkan melalui email yang didaftarkan, link verifikasi tersebut hanya berlaku selama 1 jam.
 
-Karena belum ada konfigurasi SMTP, saat kamu registrasi, link verifikasi
-**tidak benar-benar dikirim ke inbox** — link tersebut akan tampil di
-**terminal/console** tempat server berjalan, contoh:
-
-```
-================ SIMULASI EMAIL ================
-Kepada     : nama@email.com
-Subjek     : Verifikasi Akun Kamu
-Isi        :
-  Klik link berikut untuk memverifikasi akunmu (berlaku 1 jam):
-  http://localhost:3000/verify/a1b2c3...
-==================================================
-```
-
-Salin link tersebut ke browser untuk memverifikasi akun.
-
-### Mengaktifkan Pengiriman Email Sungguhan
-
-Kalau nanti sudah punya SMTP (misalnya Gmail App Password):
-
-1. Install nodemailer: `npm install nodemailer`
-2. Isi bagian SMTP di file `.env`
-3. Ganti isi `utils/mailer.js` sesuai contoh kode yang sudah dikomentari di bagian bawah file tersebut
 
 ## Struktur Project
 
@@ -86,10 +64,7 @@ secure-webapp/
 
 ## Kenapa Pakai JSON File, Bukan SQLite?
 
-Awalnya project ini didesain pakai `better-sqlite3`, tapi package tersebut
-butuh proses *native build* (compile C++) yang sering gagal di lingkungan
-tanpa build tools lengkap (termasuk beberapa setup Windows). Supaya kamu
-bisa langsung `npm install` dan jalan tanpa drama compile error, storage-nya
+Supaya bisa langsung `npm install` dan jalan tanpa drama compile error, storage-nya
 diganti ke JSON file murni JavaScript. Cocok untuk belajar dan demo; kalau
 mau dipakai skala lebih besar nanti, tinggal ganti `db.js` ke database
 sungguhan (PostgreSQL/MySQL/SQLite) tanpa mengubah routes-nya, karena semua
