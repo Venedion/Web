@@ -28,18 +28,6 @@ const registerLimiter = rateLimit({
   message: 'Terlalu banyak percobaan registrasi. Coba lagi nanti.',
 });
 
-function getLocalIpAddress() {
-  const interfaces = os.networkInterfaces();
-  for (const name of Object.keys(interfaces)) {
-    for (const iface of interfaces[name]) {
-      if (iface.family === 'IPv4' && !iface.internal) {
-        return iface.address;
-      }
-    }
-  }
-  return null;
-}
-
 // ---------- REGISTRASI ----------
 
 router.get('/register', (req, res) => {
@@ -108,23 +96,19 @@ router.post('/register', registerLimiter, async (req, res) => {
     }
 
     const verificationLink = `${baseUrl}/verify/${verificationToken}`;
-    const localIp = getLocalIpAddress();
-    const localLink = localIp ? `http://${localIp}:${process.env.PORT || 3000}/verify/${verificationToken}` : null;
-    const emailLink = localLink || verificationLink;
 
     try {
-      await sendVerificationEmail(emailLower, emailLink);
+      await sendVerificationEmail(emailLower, verificationLink);
     } catch (emailErr) {
       console.error('Gagal mengirim email verifikasi:', emailErr);
       req.session.pendingVerificationEmail = emailLower;
-      req.session.pendingVerificationLink = emailLink;
+      req.session.pendingVerificationLink = verificationLink;
     }
 
     const verificationContext = {
       email: emailLower,
-      verificationLink: req.session.pendingVerificationLink || emailLink,
+      verificationLink: req.session.pendingVerificationLink || verificationLink,
       primaryLink: verificationLink,
-      localLink,
     };
 
     res.render('check-email', verificationContext);
