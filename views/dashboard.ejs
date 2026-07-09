@@ -29,6 +29,9 @@
             <a href="#">Salep</a>
           </div>
         </details>
+        <div class="nav-search">
+          <input id="medicineSearch" type="search" placeholder="Cari obat..." aria-label="Cari obat" />
+        </div>
       </nav>
 
       <div class="profile-wrapper">
@@ -55,6 +58,7 @@
       </section>
 
       <section class="medicine-grid">
+        <div id="noResultsMessage" class="no-results" hidden>Tidak ditemukan obat dengan nama tersebut.</div>
         <details class="medicine-card">
           <summary>
             <div class="medicine-card-main">
@@ -227,5 +231,27 @@
       </section>
     </main>
   </div>
+
+  <script>
+    const searchInput = document.getElementById('medicineSearch');
+    const cards = Array.from(document.querySelectorAll('.medicine-card'));
+
+    const noResultsMessage = document.getElementById('noResultsMessage');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const title = card.querySelector('.medicine-card-title').textContent.toLowerCase();
+        const summary = card.querySelector('.medicine-card-summary').textContent.toLowerCase();
+        const matches = title.includes(query) || summary.includes(query);
+        card.style.display = matches || query === '' ? 'block' : 'none';
+        if (matches || query === '') visibleCount += 1;
+      });
+
+      noResultsMessage.hidden = visibleCount > 0;
+    });
+  </script>
 </body>
 </html>

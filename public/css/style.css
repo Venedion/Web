@@ -262,6 +262,31 @@ body {
   cursor: pointer;
 }
 
+.nav-search {
+  display: flex;
+  align-items: center;
+}
+
+.nav-search input {
+  width: 220px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e2e8f0;
+  outline: none;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.nav-search input:focus {
+  border-color: #6366f1;
+  background: rgba(15, 23, 42, 1);
+}
+
+.nav-search input::placeholder {
+  color: #94a3b8;
+}
+
 .main-nav a.active {
   color: #818cf8;
 }
@@ -538,6 +563,16 @@ body {
   .medicine-card-summary {
     font-size: 14px;
   }
+}
+
+.no-results {
+  color: #f8d7da;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 18px;
+  padding: 18px 22px;
+  margin-bottom: 16px;
+  font-size: 15px;
 }
 
 @media (max-width: 900px) {
